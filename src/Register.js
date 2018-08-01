@@ -1,9 +1,7 @@
 import React from 'react';
-import { Form, Input, Select, Button, AutoComplete } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 const FormItem = Form.Item;
-const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 
 class RegistrationForm extends React.Component {
     state = {
@@ -71,7 +69,7 @@ class RegistrationForm extends React.Component {
         };
 
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} className='register-form'>
                 <FormItem
                     {...formItemLayout}
                     label="username"
