@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, message } from 'antd';
 import $ from 'jquery';
-import { API_ROOT } from 'constants';
+import { API_ROOT } from '../constants';
 
 const FormItem = Form.Item;
 
@@ -25,10 +25,11 @@ class RegistrationForm extends React.Component {
                    }),
                 }).then((response) => {
                     message.success(response);
+                    this.props.history.push("/login");
                 }, (response) => {
                     message.error(response.responseText);
-                }).catch((e) => {
-                    console.log(e);
+                }).catch((error) => {
+                    message.error(error);
                 });
             }
         });
