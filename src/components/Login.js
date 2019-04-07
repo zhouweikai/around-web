@@ -1,8 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
-import { Link } from 'react-router-dom';
 import { Form, Icon, Input, Button, message } from 'antd';
-import {API_ROOT} from '../constants';
+import { Link } from 'react-router-dom';
+import { API_ROOT } from '../constants';
 
 const FormItem = Form.Item;
 
@@ -20,12 +20,13 @@ class NormalLoginForm extends React.Component {
                         password: values.password,
                     }),
                 }).then((response) => {
-                    console.log(response);
+                    message.success('login success!');
                     this.props.handleLogin(response);
-                }, (error) => {
-                    message.error(error.responseText);
-                }).catch((error) => {
-                    console.log(error);
+                    console.log(response);
+                }, (response) => {
+                    message.error(response.responseText);
+                }).catch((e) => {
+                    console.log(e);
                 });
             }
         });
@@ -50,7 +51,6 @@ class NormalLoginForm extends React.Component {
                     )}
                 </FormItem>
                 <FormItem>
-
                     <Button type="primary" htmlType="submit" className="login-form-button">
                         Log in
                     </Button>

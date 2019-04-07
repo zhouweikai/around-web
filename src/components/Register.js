@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, message } from 'antd';
 import $ from 'jquery';
+import { Link } from 'react-router-dom';
 import { API_ROOT } from '../constants';
 
 const FormItem = Form.Item;
@@ -17,19 +18,19 @@ class RegistrationForm extends React.Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 $.ajax({
-                   url: `${API_ROOT}/signup`,
-                   method: 'POST',
-                   data: JSON.stringify({
-                       username: values.username,
-                       password: values.password,
-                   }),
+                    url: `${API_ROOT}/signup`,
+                    method: 'POST',
+                    data: JSON.stringify({
+                        username: values.username,
+                        password: values.password,
+                    })
                 }).then((response) => {
                     message.success(response);
-                    this.props.history.push("/login");
+                    this.props.history.push('/login');
                 }, (response) => {
                     message.error(response.responseText);
-                }).catch((error) => {
-                    message.error(error);
+                }).catch((e) => {
+                    console.log(e);
                 });
             }
         });
@@ -57,10 +58,8 @@ class RegistrationForm extends React.Component {
         callback();
     }
 
-
     render() {
         const { getFieldDecorator } = this.props.form;
-        //const { autoCompleteResult } = this.state;
 
         const formItemLayout = {
             labelCol: {
@@ -86,13 +85,13 @@ class RegistrationForm extends React.Component {
         };
 
         return (
-            <Form onSubmit={this.handleSubmit} className='register-form'>
+            <Form onSubmit={this.handleSubmit} className="register-form">
                 <FormItem
                     {...formItemLayout}
-                    label="username"
+                    label="Username"
                 >
                     {getFieldDecorator('username', {
-                        rules: [{ required: true, message: 'Please input your username!', whitespace: true }],
+                        rules: [{ required: true, message: 'Please input your username!' }],
                     })(
                         <Input />
                     )}
@@ -127,11 +126,11 @@ class RegistrationForm extends React.Component {
                 </FormItem>
                 <FormItem {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">Register</Button>
+                    <p>I already have an account, go back to <Link to="/login">login</Link></p>
                 </FormItem>
-
             </Form>
         );
     }
 }
 
-export const Register = Form.create()(RegistrationForm);// highOrderComponent = Form.creat()
+export const Register = Form.create()(RegistrationForm);
